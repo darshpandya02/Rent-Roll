@@ -1,7 +1,7 @@
 import logo from "./logo.svg";
 import "./App.css";
 import "antd/dist/antd.css";
-import { Route, BrowserRouter, Routes, Navigate } from "react-router-dom";
+import { Route, BrowserRouter, Routes, Navigate, useNavigate } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -21,18 +21,18 @@ function App() {
             path="/"
             exact
             element={
-              <ProtectedRoute>
+              
                 <Home />
-              </ProtectedRoute>
+             
             }
           ></Route>
           <Route
             path="/contact"
             exact
             element={
-              <ProtectedRoute>
+             
                 <Contact />
-              </ProtectedRoute>
+             
             }
           ></Route>
           <Route path="/login" exact element={<Login />}></Route>
@@ -113,5 +113,13 @@ export default App;
 
 export function ProtectedRoute({ children }) {
   const auth = localStorage.getItem("user");
-  return auth ? children : <Navigate to="/login"></Navigate>;
+  const navigate = useNavigate();
+  
+  if (!auth) {
+    localStorage.setItem("lastClickedURL", window.location.pathname);
+
+    return <Navigate to="/login" />;
+  }
+
+  return children;
 }

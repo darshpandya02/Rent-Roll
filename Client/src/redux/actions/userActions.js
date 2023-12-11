@@ -15,10 +15,14 @@ export const userLogin = (reqObj) => async (dispatch) => {
     
     const { admin, username, _id } = response.data;
     localStorage.setItem("user", JSON.stringify({ admin, username, _id }));
+    const lastClickedURL = localStorage.getItem("lastClickedURL");
+    const bookingURL = lastClickedURL
+        ? lastClickedURL
+        : "/";
     message.success("Login success");
     dispatch({ type: "LOADING", payload: false });
     setTimeout(() => {
-      window.location.href = "/";
+      window.location.href = bookingURL;
     }, 500);
   } catch (error) {
     console.error("Error:", error);

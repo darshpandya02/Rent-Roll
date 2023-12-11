@@ -10,7 +10,19 @@ exports.getAllcars = async (req, res) => {
 
 exports.addCar = async (req, res) => {
   try {
-    const newcar = new Car(req.body);
+    const mongoose = require('mongoose');
+
+    const generateObjectId = () => {
+      return mongoose.Types.ObjectId().toString();
+    };
+    
+    const id = generateObjectId();
+    
+        const newcar = new Car({
+          ...req.body,
+          _id: id,
+        });
+    
     await newcar.save();
     res.send("Car added successfully");
   } catch (error) {

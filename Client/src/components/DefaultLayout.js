@@ -14,20 +14,31 @@ function DefaultLayout(props) {
       </Menu.Item>
       <Menu.Item>
         <a href="/contact">Contact Us</a>
+     
+      </Menu.Item> 
+      {!user &&(
+         (localStorage.removeItem("lastClickedURL"), null),
+      <Menu.Item>
+        <a href="/login">Login</a>
       </Menu.Item>
-      {user.admin && (
+      )}
+      
+      
+      {user && user.admin && (
         <Menu.Item>
-          <a href="/admin">Admin Panel</a>
+          <Link to="/admin">Admin Panel</Link>
         </Menu.Item>
       )}
-      <Menu.Item
-        onClick={() => {
-          localStorage.removeItem("user");
-          window.location.href = "/login";
-        }}
-      >
-        <li>Logout</li>
-      </Menu.Item>
+      {user && (
+        <Menu.Item
+          onClick={() => {
+            localStorage.removeItem("user");
+            window.location.href = "/";
+          }}
+        >
+          Logout
+        </Menu.Item>
+      )}
     </Menu>
   );
   return (
@@ -73,7 +84,10 @@ function DefaultLayout(props) {
             </div>
           </Link>
           <Dropdown overlay={menu} placement="bottomCenter">
-            <Button>{"Wellcome " + user.username}</Button>
+            <Button>{"Welcome " 
+            // user.username
+            }
+            </Button>
           </Dropdown>
           {/* <button>user</button> */}
         </div>

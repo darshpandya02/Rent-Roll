@@ -28,8 +28,6 @@ function Home() {
   function setFilter(values) {
     if (values) {
       if (values.length > 1) {
-        // var selectedFrom = moment(values[0], "MMM DD yyyy HH:mm");
-        // var selectedTo = moment(values[1], "MMM DD yyyy HH:mm");
         setFrom(moment(values[0]).format("MMM DD yyyy HH"));
         setTo(moment(values[1]).format("MMM DD yyyy HH"));
         var selectedFrom = moment(new Date(values[0]._d)).format(
@@ -71,11 +69,9 @@ function Home() {
                   "[]"
                 )
               ) {
-                //console.log(car);
                 filterCars.push(car);
               } else {
                 temp.push(car);
-                // return;
               }
             }
           }
@@ -89,9 +85,12 @@ function Home() {
     var temp = [...new Set(temp)];
     temp =
       filterCars?.length > 0
-        ? temp.filter((item) => !filterCars.includes(item)) //filtering the booked cars.....
+        ? temp.filter((item) => !filterCars.includes(item)) 
         : temp;
-    setTotalcars(temp);
+  //       const selectedCarId = temp[0]?._id;
+  // localStorage.setItem("selectedCarId", selectedCarId);
+
+  setTotalcars(temp);
   }
   return (
     <DefaultLayout>
@@ -133,6 +132,9 @@ function Home() {
                       </div>
                       <div>
                         <button className="btn1 mr-2">
+                          {
+                              localStorage.setItem("selectedCarId", car._id)
+                          }
                           <Link to={`/booking/${car._id}`}> Book Now</Link>
                         </button>
                       </div>

@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path");
 const app = express();
 const dbConnection = require("./Db/db");
+
 var cors = require("cors");
 app.use(cors());
 
@@ -30,3 +31,4 @@ app.use("/api/bookings/", require("./Routes/bookingsRoute"));
 app.listen(port, () => {
   console.log(`Server is running at port: ${port} `);
 });
+
