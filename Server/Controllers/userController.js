@@ -35,6 +35,7 @@ const id = generateObjectId();
 
 exports.getAllUsers = async (req, res) => {
   try {
+    
     const users = await User.find();
     res.send(users);
   } catch (error) {
