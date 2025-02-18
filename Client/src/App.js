@@ -11,6 +11,7 @@ import AddCar from "./pages/AddCar";
 import EditCar from "./pages/EditCar";
 import AdminHome from "./pages/AdminHome";
 import Contact from "./components/Contact";
+import Profile from "./pages/Profile";
 
 function App() {
   return (
@@ -23,6 +24,15 @@ function App() {
             element={
               
                 <Home />
+             
+            }
+          ></Route>
+          <Route
+            path="/profile"
+            exact
+            element={
+              
+                <Profile />
              
             }
           ></Route>
