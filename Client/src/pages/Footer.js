@@ -42,7 +42,7 @@ const Footer = () => {
                 <div className="single-cta">
                   <div className="cta-text">
                     <h4>Mail us</h4>
-                    <span>gandhi.meet@northeastern.edu</span>
+                    <span>pandya.dar@northeastern.edu</span>
                   </div>
                 </div>
               </div>
@@ -168,7 +168,7 @@ const Footer = () => {
                 <div className="copyright-text">
                   <p>
                     Copyright &copy; 2023, All Right Reserved by
-                    <a href="http://linkedin.com/in/meetgandhii/"> Meet</a>
+                    <a href="http://linkedin.com/in/darshpandya02/"> Darsh </a>
                   </p>
                 </div>
               </div>

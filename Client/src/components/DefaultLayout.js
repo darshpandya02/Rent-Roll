@@ -10,20 +10,22 @@ function DefaultLayout(props) {
         <a href="/">Home</a>
       </Menu.Item>
       <Menu.Item>
+        <a href="/profile">Profile</a>
+      </Menu.Item>
+      <Menu.Item>
         <a href="/userbookings">Bookings</a>
       </Menu.Item>
       <Menu.Item>
         <a href="/contact">Contact Us</a>
-     
-      </Menu.Item> 
-      {!user &&(
-         (localStorage.removeItem("lastClickedURL"), null),
-      <Menu.Item>
-        <a href="/login">Login</a>
       </Menu.Item>
-      )}
-      
-      
+      {!user &&
+        ((localStorage.removeItem("lastClickedURL"), null),
+        (
+          <Menu.Item>
+            <a href="/login">Login</a>
+          </Menu.Item>
+        ))}
+
       {user && user.admin && (
         <Menu.Item>
           <Link to="/admin">Admin Panel</Link>
@@ -34,8 +36,7 @@ function DefaultLayout(props) {
           onClick={() => {
             localStorage.removeItem("user");
             window.location.href = "/";
-          }}
-        >
+          }}>
           Logout
         </Menu.Item>
       )}
