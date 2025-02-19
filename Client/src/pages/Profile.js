@@ -13,7 +13,7 @@ function Profile() {
   const [editedEmail, setEditedEmail] = useState("");
   const [editedPassword, setEditedPassword] = useState("");
   const [editedPhone, setEditedPhone] = useState("");
-  const BASE_URL = process.env.REACT_APP_API_URL;
+  const BASE_URL = process.env.REACT_APP_PROD_API_URL || process.env.REACT_APP_API_URL;
  
   useEffect(() => {
     const fetchUserData = async () => {

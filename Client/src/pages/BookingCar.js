@@ -19,7 +19,7 @@ import Footer from "./Footer";
 const { RangePicker } = DatePicker;
 
 function BookingCar() {
-  const BASE_URL = process.env.REACT_APP_API_URL;
+  const BASE_URL = process.env.REACT_APP_PROD_API_URL || process.env.REACT_APP_API_URL;
   const { id } = useParams();
   const { cars } = useSelector((state) => state.carsReducer);
   const { loading } = useSelector((state) => state.alertsReducer);
