@@ -1,6 +1,8 @@
 import axios from "axios";
 import { message } from "antd";
 
+const BASE_URL = process.env.REACT_APP_API_URL;
+
 export const userLogin = (reqObj) => async (dispatch) => {
   dispatch({ type: "LOADING", payload: true });
 
@@ -8,10 +10,7 @@ export const userLogin = (reqObj) => async (dispatch) => {
     
     console.log(reqObj);
 
-    const response = await axios.post(
-      "http://localhost:4000/api/users/login",
-      reqObj
-    );
+    const response = await axios.post(`${BASE_URL}/api/users/login`, reqObj);
     
     const { admin, username, _id } = response.data;
     localStorage.setItem("user", JSON.stringify({ admin, username, _id }));
@@ -38,10 +37,7 @@ export const userRegister = (reqObj) => async (dispatch) => {
   dispatch({ type: "LOADING", payload: true });
 
   try {
-    const response = await axios.post(
-      "http://localhost:4000/api/users/register",
-      reqObj
-    );
+    const response = await axios.post(`${BASE_URL}/api/users/register`, reqObj);
     message.success("Registration successfull");
     setTimeout(() => {
       window.location.href = "/login";
