@@ -1,14 +1,14 @@
 import axios from "axios";
 import { message } from "antd";
+
+const BASE_URL = process.env.REACT_APP_API_URL;
+
 export const bookCar = (reqObj) => async (dispatch) => {
   dispatch({ type: "LOADING", payload: true });
 
   try {
     console.log(reqObj);
-    await axios.post(
-      "http://localhost:4000/api/bookings/bookcar",
-      reqObj
-    );
+    await axios.post(`${BASE_URL}/api/bookings/bookcar`, reqObj);
 
     dispatch({ type: "LOADING", payload: false });
     message.success("Your car booked successfully");
@@ -26,9 +26,7 @@ export const getAllBookings = () => async (dispatch) => {
   dispatch({ type: "LOADING", payload: true });
 
   try {
-    const response = await axios.get(
-      "http://localhost:4000/api/bookings/getallbookings"
-    );
+    const response = await axios.get(`${BASE_URL}/api/bookings/getallbookings`);
     dispatch({ type: "GET_ALL_BOOKINGS", payload: response.data });
     dispatch({ type: "LOADING", payload: false });
   } catch (error) {

@@ -19,6 +19,7 @@ import Footer from "./Footer";
 const { RangePicker } = DatePicker;
 
 function BookingCar() {
+  const BASE_URL = process.env.REACT_APP_API_URL;
   const { id } = useParams();
   const { cars } = useSelector((state) => state.carsReducer);
   const { loading } = useSelector((state) => state.alertsReducer);
@@ -36,7 +37,9 @@ function BookingCar() {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(`http://localhost:4000/api/users/getUserDetails/${user.username}`);
+        const response = await axios.get(
+          `${BASE_URL}/api/users/getUserDetails/${user.username}`
+        );
         console.log(response.data);
         setUserData(response.data);
       } catch (error) {

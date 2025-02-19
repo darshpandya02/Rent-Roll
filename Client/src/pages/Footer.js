@@ -22,7 +22,7 @@ const Footer = () => {
                   <div className="cta-text">
                     <PushpinOutlined className="f-icons" />
                     <h4>Find us</h4>
-                    <span>75 Saint Alphonsus Street, Apt 1414</span>
+                    <span>682 Parker Street, Boston, MA 02120</span>
                   </div>
                 </div>
               </div>
