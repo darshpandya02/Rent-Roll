@@ -29,9 +29,9 @@ const Map = () => {
       </h2>
       <ReactMapGL
         {...viewport}
-        mapboxApiAccessToken="pk.eyJ1IjoibnVtYW5hbmVlcyIsImEiOiJja3kwMWExZmcwYTBuMnFxZGMwc2VtNngzIn0.AdcyN5u-Ab22UUFSYcaz8g"
+        mapboxApiAccessToken="pk.eyJ1IjoiZGFyc2hwYW5keWEwMiIsImEiOiJjbTdiNHEwaWgwNnUwMm1waXJlZG84NDA1In0.vBosJZHMTVLkKff_WOif2w"
         onViewportChange={(viewport) => setViewport(viewport)}
-        mapStyle={"mapbox://styles/meetgandhi/cky01qc5u382o14l5u46kvve1"}>
+        mapStyle={"mapbox://styles/mapbox/navigation-night-v1"}>
         <Marker latitude={latitude} longitude={longitude}>
           <div className="marker">
             <a href="https://maps.app.goo.gl/ak2dtaqiw6ntdD7f9" target="_blank">
