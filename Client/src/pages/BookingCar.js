@@ -112,15 +112,32 @@ function BookingCar() {
           <Row
             justify="center"
             className="d-flex align-items-center"
-            style={{ minHeight: "90vh" }}
-          >
+            style={{ minHeight: "90vh" }}>
             <Col lg={10} sm={24} xs={24}>
               <img src={car.image} alt={car.name} className="carimg2 bs2" />
             </Col>
-            <Col lg={10} sm={24} xs={24} style={{ marginLeft: "65px", bottom: "10px" }}>
-              <div style={{ backgroundColor: "#28d8d8", borderRadius: "10px", width: "90%" }}>
-                <Divider><h4 style={{ color: "white" }}>DETAILS</h4></Divider>
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "center", marginLeft: "0.5px", marginRight: "0.5px" }}>
+            <Col
+              lg={10}
+              sm={24}
+              xs={24}
+              style={{ marginLeft: "65px", bottom: "10px" }}>
+              <div
+                style={{
+                  backgroundColor: "#dda0dd",
+                  borderRadius: "10px",
+                  width: "90%",
+                }}>
+                <Divider>
+                  <h4 style={{ color: "white" }}>DETAILS</h4>
+                </Divider>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    marginLeft: "0.5px",
+                    marginRight: "0.5px",
+                  }}>
                   <div style={{ margin: "4px" }} className="car-headings">
                     <p style={{ display: "flex", flexDirection: "row" }}>
                       <span className="booking-icons">
@@ -140,7 +157,7 @@ function BookingCar() {
                       </span>
                       <span className="car-data">Fuel Type</span>
                     </p>
-                    
+
                     <p style={{ display: "flex", flexDirection: "row" }}>
                       <span className="booking-icons">
                         <UsergroupAddOutlined />
@@ -149,13 +166,23 @@ function BookingCar() {
                     </p>
                   </div>
                   <div className="car-headData">
-                    <p><span className="car-data2">{car.name}</span></p>
-                    <p><span className="car-data2">{car.rentPerHour} $</span></p>
-                    <p><span className="car-data2">{car.fuelType}</span></p>
-                    <p><span className="car-data2">{car.capacity}</span></p>
+                    <p>
+                      <span className="car-data2">{car.name}</span>
+                    </p>
+                    <p>
+                      <span className="car-data2">{car.rentPerHour} $</span>
+                    </p>
+                    <p>
+                      <span className="car-data2">{car.fuelType}</span>
+                    </p>
+                    <p>
+                      <span className="car-data2">{car.capacity}</span>
+                    </p>
                   </div>
                 </div>
-                <Divider><h4 style={{ color: "white" }}>SELECT TIME SLOTS</h4></Divider>
+                <Divider>
+                  <h4 style={{ color: "white" }}>SELECT TIME SLOTS</h4>
+                </Divider>
                 <div>
                   <RangePicker
                     className="RangePicker"
@@ -172,29 +199,45 @@ function BookingCar() {
                       outline: "none",
                       border: "none",
                     }}
-                    onClick={() => setShowModal(true)}
-                  >
+                    onClick={() => setShowModal(true)}>
                     See Booked Slots
                   </button>
                   {from && to && (
-                    <div style={{ display: "flex", flexDirection: "column", alignItems: "end", marginRight: "56px", color: "white" }}>
-                      <p>Total Hours: <b>{totalMins / 60}</b></p>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "end",
+                        marginRight: "56px",
+                        color: "white",
+                      }}>
+                      <p>
+                        Total Hours: <b>{totalMins / 60}</b>
+                      </p>
                       {userData.subscriber !== undefined && (
                         <>
                           <Checkbox
                             onChange={(e) => {
                               setDriver(e.target.checked);
-                            }}
-                          >
-                            <span style={{ color: "white" }}> Driver Required</span>
+                            }}>
+                            <span style={{ color: "white" }}>
+                              {" "}
+                              Driver Required
+                            </span>
                           </Checkbox>
                           <h3 style={{ color: "white" }}>
                             {userData.subscriber ? (
                               <>
-                                <span style={{ display: "block", fontSize: "smaller", textDecoration: "line-through" }}>
-                                  Total Amount: ${(totalAmount * 5 / 3).toFixed(2)}{" "}
+                                <span
+                                  style={{
+                                    display: "block",
+                                    fontSize: "smaller",
+                                    textDecoration: "line-through",
+                                  }}>
+                                  Total Amount: $
+                                  {((totalAmount * 5) / 3).toFixed(2)}{" "}
                                 </span>
-                                Discounted Amount: ${((totalAmount)).toFixed(2)}
+                                Discounted Amount: ${totalAmount.toFixed(2)}
                               </>
                             ) : (
                               `Total Amount: $${totalAmount.toFixed(2)}`
@@ -209,8 +252,7 @@ function BookingCar() {
                               outline: "none",
                               border: "none",
                             }}
-                            onClick={onBookNowClick}
-                          >
+                            onClick={onBookNowClick}>
                             Book Now
                           </button>
                         </>
@@ -225,8 +267,7 @@ function BookingCar() {
                 visible={showModal}
                 closable={false}
                 footer={false}
-                title="Booked time slots"
-              >
+                title="Booked time slots">
                 <div className="p-2">
                   {car.bookedTimeSlots.map((slot, index) => (
                     <button className="btn1 mt-2 ml-2" key={index}>
@@ -236,8 +277,7 @@ function BookingCar() {
                   <div className="text-right mt-5">
                     <button
                       className="btn1"
-                      onClick={() => setShowModal(false)}
-                    >
+                      onClick={() => setShowModal(false)}>
                       CLOSE
                     </button>
                   </div>
