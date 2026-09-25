@@ -16,6 +16,8 @@ exports.bookCar = async (req, res) => {
     const payment = fakePaymentResponse;
 
     if (payment) {
+      // The booking always belongs to the signed-in user, whatever the client sent.
+      req.body.user = req.user.id;
       req.body.transactionId = payment.source.id;
       req.body.token = payment.id;
 
@@ -41,7 +43,9 @@ exports.bookCar = async (req, res) => {
 };
 exports.getAllBookings = async (req, res) => {
   try {
-    const bookings = await Booking.find().populate("car").populate("user");
+    // Admins see every booking; everyone else sees only their own.
+    const filter = req.user.admin ? {} : { user: req.user.id };
+    const bookings = await Booking.find(filter).populate("car").populate("user", "username email");
     res.send(bookings);
   } catch (error) {
     return res.status(400).json(error);

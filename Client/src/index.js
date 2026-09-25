@@ -6,6 +6,10 @@ import reportWebVitals from "./reportWebVitals";
 import store from "./redux/store";
 import { Provider } from "react-redux";
 import Chatwidget from "./components/Chatwidget";
+import { installAuthInterceptors } from "./auth";
+
+installAuthInterceptors();
+
 ReactDOM.render(
   <Provider store={store}>
     <App />

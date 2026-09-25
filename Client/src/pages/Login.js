@@ -1,14 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { message } from "antd";
 import { Row, Col, Form, Input } from "antd";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { userLogin } from "../redux/actions/userActions";
+import { API_URL } from "../auth";
+
+const OAUTH_ERRORS = {
+  access_denied: "Google sign-in was cancelled",
+  email_not_verified: "Your Google email is not verified",
+  session_expired: "Sign-in took too long, please try again",
+};
 
 function Login() {
   const dispatch = useDispatch();
+  const [googleEnabled, setGoogleEnabled] = useState(false);
+
+  useEffect(() => {
+    axios
+      .get(`${API_URL}/api/auth/providers`)
+      .then((res) => setGoogleEnabled(Boolean(res.data.google)))
+      .catch(() => setGoogleEnabled(false));
+
+    const error = new URLSearchParams(window.location.search).get("oauth_error");
+    if (error) message.error(OAUTH_ERRORS[error] || "Google sign-in failed");
+  }, []);
+
   function onFinish(values) {
     dispatch(userLogin(values));
-    console.log(values);
   }
   return (
     <div className="login">
@@ -52,6 +72,11 @@ function Login() {
               />
             </Form.Item>
             <button className="btn2 mt-2 mb-3">Login</button>
+            {googleEnabled && (
+              <a className="btn2 mt-2 mb-3 ml-2" href={`${API_URL}/api/auth/google`}>
+                Continue with Google
+              </a>
+            )}
             <br />
             <Link to="/register">Click here to Register</Link>
           </Form>

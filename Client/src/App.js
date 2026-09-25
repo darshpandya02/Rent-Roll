@@ -1,7 +1,7 @@
 import logo from "./logo.svg";
 import "./App.css";
 import "antd/dist/antd.css";
-import { Route, BrowserRouter, Routes, Navigate, useNavigate } from "react-router-dom";
+import { Route, BrowserRouter, Routes, Navigate } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -12,6 +12,8 @@ import EditCar from "./pages/EditCar";
 import AdminHome from "./pages/AdminHome";
 import Contact from "./components/Contact";
 import Profile from "./pages/Profile";
+import OAuthCallback from "./pages/OAuthCallback";
+import { isLoggedIn } from "./auth";
 function App() {
   return (
     <div className="App">
@@ -36,6 +38,7 @@ function App() {
             }
           ></Route>
           <Route path="/login" exact element={<Login />}></Route>
+          <Route path="/oauth/callback" exact element={<OAuthCallback />}></Route>
           <Route path="/register" exact element={<Register />}>
             {" "}
           </Route>
@@ -122,10 +125,7 @@ function App() {
 export default App;
 
 export function ProtectedRoute({ children }) {
-  const auth = localStorage.getItem("user");
-  const navigate = useNavigate();
-  
-  if (!auth) {
+  if (!isLoggedIn()) {
     localStorage.setItem("lastClickedURL", window.location.pathname);
 
     return <Navigate to="/login" />;

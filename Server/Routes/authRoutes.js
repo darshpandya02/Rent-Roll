@@ -1,0 +1,10 @@
+const express = require("express");
+const router = express.Router();
+const oauthController = require("../Controllers/oauthController");
+const userController = require("../Controllers/userController");
+const { requireAuth } = require("../Middleware/auth");
+router.get("/providers", oauthController.providers);
+router.get("/google", oauthController.start);
+router.get("/google/callback", oauthController.callback);
+router.get("/me", requireAuth, userController.me);
+module.exports = router;

@@ -2,6 +2,7 @@ import React from "react";
 import { Menu, Dropdown, Button, Space } from "antd";
 import Logoo from "../images/logo.png";
 import { Link } from "react-router-dom";
+import { clearSession } from "../auth";
 function DefaultLayout(props) {
   const user = JSON.parse(localStorage.getItem("user"));
   const menu = (
@@ -37,7 +38,7 @@ function DefaultLayout(props) {
       {user && (
         <Menu.Item
           onClick={() => {
-            localStorage.removeItem("user");
+            clearSession();
             window.location.href = "/";
           }}
         >

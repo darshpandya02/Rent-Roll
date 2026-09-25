@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import DefaultLayout from "../components/DefaultLayout";
-import { Row } from "antd";
+import { Row, message } from "antd";
 import Spinner from "../components/Spinner";
 import Footer from "./Footer";
 import axios from "axios";
@@ -24,7 +24,6 @@ function Profile() {
         setUserData(response.data);
  
         setEditedEmail(response.data.email);
-        setEditedPassword(response.data.password);
         setEditedPhone(response.data.phone);
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -40,21 +39,17 @@ function Profile() {
  
   const handleSave = async () => {
     try {
-      await axios.put(`${BASE_URL}/api/users/profile/${user.username}`, {
-        email: editedEmail,
-        password: editedPassword,
-        phone: editedPhone,
-      });
-      setUserData({
-        ...userData,
-        email: editedEmail,
-        password: editedPassword,
-        phone: editedPhone,
-      });
- 
+      const changes = { email: editedEmail, phone: editedPhone };
+      // Blank means "keep my current password".
+      if (editedPassword) changes.password = editedPassword;
+      const response = await axios.put(`${BASE_URL}/api/users/profile/${user.username}`, changes);
+      setUserData(response.data);
+      setEditedPassword("");
       setEditMode(false);
+      message.success("Profile updated");
     } catch (error) {
-      console.error("Error updating user data:", error);
+      const reason = error.response && error.response.data && error.response.data.error;
+      message.error(reason || "Could not update your profile");
     }
   };
  
@@ -127,9 +122,11 @@ function Profile() {
                     onChange={(e) => setEditedEmail(e.target.value)}
                     style={inputStyle}
                   />
-                  <label style={labelStyle}>Password:</label>
+                  <label style={labelStyle}>New password:</label>
                   <input
+                    type="password"
                     value={editedPassword}
+                    placeholder="Leave blank to keep your current password"
                     onChange={(e) => setEditedPassword(e.target.value)}
                     style={inputStyle}
                   />
@@ -156,10 +153,10 @@ function Profile() {
                     readOnly
                     style={readOnlyInputStyle}
                   />
-                  <label style={labelStyle}>Password:</label>
+                  <label style={labelStyle}>Sign-in method:</label>
                   <input
                     className="form-control"
-                    value={userData.password}
+                    value={userData.authProvider === "google" ? "Google" : "Email and password"}
                     readOnly
                     style={readOnlyInputStyle}
                   />

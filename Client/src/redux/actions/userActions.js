@@ -1,20 +1,13 @@
 import axios from "axios";
 import { message } from "antd";
-
-const BASE_URL =
-  process.env.REACT_APP_PROD_API_URL || process.env.REACT_APP_API_URL;
+import { API_URL as BASE_URL, saveSession } from "../../auth";
 
 export const userLogin = (reqObj) => async (dispatch) => {
   dispatch({ type: "LOADING", payload: true });
 
   try {
-    
-    console.log(reqObj);
-
     const response = await axios.post(`${BASE_URL}/api/users/login`, reqObj);
-    
-    const { admin, username, _id } = response.data;
-    localStorage.setItem("user", JSON.stringify({ admin, username, _id }));
+    saveSession(response.data.token, response.data.user);
     const lastClickedURL = localStorage.getItem("lastClickedURL");
     const bookingURL = lastClickedURL
         ? lastClickedURL
@@ -25,10 +18,8 @@ export const userLogin = (reqObj) => async (dispatch) => {
       window.location.href = bookingURL;
     }, 500);
   } catch (error) {
-    console.error("Error:", error);
-    console.error("Error response:", error.response);
-  
-    message.error("Something went wrong");
+    const invalid = error.response && error.response.status === 401;
+    message.error(invalid ? "Invalid email or password" : "Something went wrong");
     dispatch({ type: "LOADING", payload: false });
   }
 };
@@ -46,10 +37,8 @@ export const userRegister = (reqObj) => async (dispatch) => {
 
     dispatch({ type: "LOADING", payload: false });
   } catch (error) {
-    console.error("Error:", error);
-    console.error("Error response:", error.response); // Log the error response
-  
-    message.error("Something went wrong");
+    const reason = error.response && error.response.data && error.response.data.error;
+    message.error(reason || "Something went wrong");
     dispatch({ type: "LOADING", payload: false });
   }
 };

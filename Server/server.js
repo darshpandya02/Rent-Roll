@@ -6,6 +6,7 @@ const dbConnection = require("./Db/db");
 var cors = require("cors");
 app.use(cors());
 
+app.set("trust proxy", 1);
 app.use(express.json());
 
 // Make sure the (cached) Mongo connection is ready before handling API calls.
@@ -29,6 +30,7 @@ app.use("/api/cars/", require("./Routes/carsRoutes"));
 app.use("/booking/api/cars/", require("./Routes/carsRoutes"));
 app.use("/editcar/api/cars/", require("./Routes/carsRoutes"));
 app.use("/api/users/", require("./Routes/usersRoutes"));
+app.use("/api/auth/", require("./Routes/authRoutes"));
 app.use("/booking/api/bookings/", require("./Routes/bookingsRoute"));
 app.use("/api/bookings/", require("./Routes/bookingsRoute"));
 // if (process.env.NODE_ENV === "production") {
