@@ -255,6 +255,9 @@ function BookingCar() {
                             onClick={onBookNowClick}>
                             Book Now
                           </button>
+                          <p style={{ color: "white", fontSize: "0.8rem" }}>
+                            Payments are disabled in this demo; no card is charged.
+                          </p>
                         </>
                       )}
                     </div>

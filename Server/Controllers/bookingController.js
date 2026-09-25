@@ -1,7 +1,8 @@
 const { v4: uuidv4 } = require("uuid");
-const stripe = require("stripe")(
-  "STRIPE_TEST_KEY_REMOVED"
-);
+// Payments are mocked below; Stripe is only initialised when a key is provided.
+const stripe = process.env.STRIPE_SECRET_KEY
+  ? require("stripe")(process.env.STRIPE_SECRET_KEY)
+  : null;
 const Booking = require("../Models/bookingModel");
 const Car = require("../Models/carModel");
 exports.bookCar = async (req, res) => {

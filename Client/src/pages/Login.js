@@ -21,6 +21,15 @@ function Login() {
           >
             <h1 className="login-heading">Login</h1>
             <hr />
+            <div className="demo-credentials" style={{ marginBottom: "1rem", fontSize: "0.9rem" }}>
+              <b>Demo accounts</b>
+              <br />
+              User: demo@rentroll.app / demo1234
+              <br />
+              Subscriber (40% off): subscriber@rentroll.app / demo1234
+              <br />
+              Admin: admin@rentroll.app / admin1234
+            </div>
             <Form.Item
               name="email"
               label="Email Address"

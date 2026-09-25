@@ -1,0 +1,16 @@
+{
+  "framework": null,
+  "installCommand": "npm ci --prefix Server --omit=dev && npm ci --prefix Client --legacy-peer-deps",
+  "buildCommand": "cd Client && CI=false REACT_APP_API_URL=${REACT_APP_API_URL:-https://$VERCEL_PROJECT_PRODUCTION_URL} npm run build",
+  "outputDirectory": "Client/build",
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}

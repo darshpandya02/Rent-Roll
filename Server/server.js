@@ -8,6 +8,16 @@ app.use(cors());
 
 app.use(express.json());
 
+// Make sure the (cached) Mongo connection is ready before handling API calls.
+app.use(async (req, res, next) => {
+  try {
+    await dbConnection.connectDb();
+    next();
+  } catch (err) {
+    res.status(500).json({ error: "Database connection failed" });
+  }
+});
+
 const port = process.env.PORT || 4000;
 
 app.get("/", (req, res) => {
@@ -28,7 +38,11 @@ app.use("/api/bookings/", require("./Routes/bookingsRoute"));
 //     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
 //   });
 // }
-app.listen(port, () => {
-  console.log(`Server is running at port: ${port} `);
-});
+if (require.main === module) {
+  app.listen(port, () => {
+    console.log(`Server is running at port: ${port} `);
+  });
+}
+
+module.exports = app;
 

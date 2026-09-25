@@ -90,4 +90,17 @@ Further notes -
 
 Create a .env file in server and client to store secret keys and strings
 
-Live Demo - ...
+Live Demo - https://rent-and-roll.vercel.app
+
+Demo accounts (also shown on the login page):
+
+| Role | Email | Password |
+| --- | --- | --- |
+| User | demo@rentroll.app | demo1234 |
+| Subscriber (40% off) | subscriber@rentroll.app | demo1234 |
+| Admin | admin@rentroll.app | admin1234 |
+
+Payments are mocked in the demo; no card is charged. The contact form does not send email.
+
+Deployment: Vercel serves the CRA build from `Client/build` and runs the Express app from `Server/` as a
+serverless function at `/api` (see `vercel.json` and `api/index.js`). Set `MONGODB_URI` in the Vercel project.
